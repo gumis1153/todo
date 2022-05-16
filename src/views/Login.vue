@@ -2,7 +2,7 @@
   <div class="login">
     <h1>{{ capitalize(activeGroup) }}</h1>
 
-    <n-button-group size="medium">
+    <n-button-group size="medium" style="margin-bottom: 24px;">
       <n-button
         :type="setActiveButton('login')"
         native-focus-behavior="true"
