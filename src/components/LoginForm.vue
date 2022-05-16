@@ -1,21 +1,79 @@
 <template>
   <div class="login">
-    <h1>login</h1>
+    <n-form :model="formValue" inline label-placement="center" size="medium">
+      <n-grid cols="1" item-responsive y-gap="24">
+        <n-grid-item>
+          <n-form-item label="Login" label-width="100%">
+            <n-input
+              v-model:value="formValue.login.value"
+              :status="!formValue.login.valid ? 'error' : ''"
+              placeholder="Login"
+            />
+          </n-form-item>
+        </n-grid-item>
+
+        <n-grid-item>
+          <n-form-item label="Password">
+            <n-input
+              v-model:value="formValue.password.value"
+              :status="!formValue.password.valid ? 'error' : ''"
+              placeholder="Password"
+              type="password"
+            />
+          </n-form-item>
+        </n-grid-item>
+
+        <n-grid-item>
+          <n-form-item>
+            <n-button type="primary" @click="handleValidateButtonClick">
+              Login
+            </n-button>
+          </n-form-item>
+        </n-grid-item>
+      </n-grid>
+    </n-form>
   </div>
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
-import {defineComponent, ref} from "vue";
-// eslint-disable-next-line no-unused-vars
-import {NButtonGroup, NButton, NCard, NGrid, NGridItem} from "naive-ui";
+import { defineComponent, ref } from "vue";
+import { NGrid, NGridItem, NForm, NInput } from "naive-ui";
 
 export default defineComponent({
-  components: {},
+  components: {
+    NGrid,
+    NGridItem,
+    NForm,
+    NInput,
+  },
 
   setup() {
+    const formValue = ref({
+      login: {
+        value: "",
+        valid: true,
+      },
+      password: {
+        value: "",
+        valid: true,
+      },
+    });
 
-    return {};
+    const handleValidateButtonClick = (e) => {
+      e.preventDefault();
+      formValue.value.login.valid = formValue.value.login.value.length > 0;
+      formValue.value.password.valid =
+        formValue.value.password.value.length > 0;
+
+      if (formValue.value.login.valid && formValue.value.password.valid) {
+        console.log("Login...");
+      }
+    };
+
+    return {
+      formValue,
+      handleValidateButtonClick,
+    };
   },
 });
 </script>
