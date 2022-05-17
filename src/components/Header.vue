@@ -1,43 +1,53 @@
 <template>
-  <n-menu :options="menuOptions" mode="horizontal"/>
+  <n-menu :options="menuOptions" mode="horizontal" />
 </template>
 
 <script>
-import {defineComponent, h} from "vue";
-import {NIcon, NMenu} from "naive-ui";
-import {RouterLink} from "vue-router";
-import {HomeOutline, LogInOutline} from "@vicons/ionicons5";
-import {TasksApp24Regular} from "@vicons/fluent";
+import { NIcon, NMenu } from "naive-ui";
+import { RouterLink } from "vue-router";
+import { HomeOutline, LogInOutline } from "@vicons/ionicons5";
+import { TasksApp24Regular } from "@vicons/fluent";
+
+import { defineComponent, h } from "vue";
 
 function renderIcon(icon) {
-  return () => h(NIcon, null, {default: () => h(icon)});
+  return () => h(NIcon, null, { default: () => h(icon) });
 }
 
 const menuOptions = [
   {
     label: () =>
-        h(RouterLink, {
-              to: "/",
-            }, "Home"
-        ),
+      h(
+        RouterLink,
+        {
+          to: "/",
+        },
+        "Home"
+      ),
     key: "home",
     icon: renderIcon(HomeOutline),
   },
   {
     label: () =>
-        h(RouterLink, {
-              to: "/tasks",
-            }, "Tasks"
-        ),
+      h(
+        RouterLink,
+        {
+          to: "/tasks",
+        },
+        "Tasks"
+      ),
     key: "tasks",
     icon: renderIcon(TasksApp24Regular),
   },
   {
     label: () =>
-        h(RouterLink, {
-              to: "/login",
-            }, "Login"
-        ),
+      h(
+        RouterLink,
+        {
+          to: "/login",
+        },
+        "Login"
+      ),
     key: "login",
     icon: renderIcon(LogInOutline),
   },

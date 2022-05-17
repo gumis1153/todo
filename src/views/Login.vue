@@ -2,7 +2,7 @@
   <div class="login">
     <h1>{{ capitalize(activeGroup) }}</h1>
 
-    <n-button-group size="medium" style="margin-bottom: 24px;">
+    <n-button-group size="medium" style="margin-bottom: 24px">
       <n-button
         :type="setActiveButton('login')"
         native-focus-behavior="true"
@@ -34,12 +34,12 @@
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
-import { defineComponent, ref, computed } from "vue";
-// eslint-disable-next-line no-unused-vars
-import { NButtonGroup, NButton, NCard, NGrid, NGridItem } from "naive-ui";
 import RegisterForm from "@/components/RegisterForm";
 import LoginForm from "@/components/LoginForm";
+
+import { NButtonGroup, NButton, NCard, NGrid, NGridItem } from "naive-ui";
+
+import { defineComponent, ref, computed } from "vue";
 
 export default defineComponent({
   components: {

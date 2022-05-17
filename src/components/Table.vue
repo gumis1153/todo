@@ -1,16 +1,17 @@
 <template>
   <n-data-table
-      :columns="columns"
-      :data="data"
-      :pagination="pagination"
-      :row-key="(row) => row.address"
-      @update:checked-row-keys="handleCheck"
+    :columns="columns"
+    :data="data"
+    :pagination="pagination"
+    :row-key="(row) => row.address"
+    @update:checked-row-keys="handleCheck"
   />
 </template>
 
 <script>
-import {defineComponent, ref, h, watch} from "vue";
-import {NButton} from "naive-ui";
+import { NButton } from "naive-ui";
+
+import { defineComponent, ref, h, watch } from "vue";
 
 const columns = [
   {
@@ -39,15 +40,15 @@ const columns = [
     key: "completed",
     render() {
       return h(
-          NButton,
-          {
-            strong: true,
-            tertiary: true,
-            size: "small",
-            // select completed
-            onClick: () => console.log("playing..."),
-          },
-          {default: () => "Completed"}
+        NButton,
+        {
+          strong: true,
+          tertiary: true,
+          size: "small",
+          // select completed
+          onClick: () => console.log("playing..."),
+        },
+        { default: () => "Completed" }
       );
     },
   },

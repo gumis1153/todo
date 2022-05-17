@@ -20,9 +20,10 @@
 </template>
 
 <script>
-import { onBeforeMount, ref } from "vue";
 import { NResult, NButton, NGrid, NGridItem } from "naive-ui";
 import axios from "axios";
+
+import { onBeforeMount, ref } from "vue";
 
 export default {
   components: {

@@ -36,13 +36,12 @@
 </template>
 
 <script>
+import { NForm, NInput } from "naive-ui";
+
 import { defineComponent, ref } from "vue";
-import { NGrid, NGridItem, NForm, NInput } from "naive-ui";
 
 export default defineComponent({
   components: {
-    NGrid,
-    NGridItem,
     NForm,
     NInput,
   },
