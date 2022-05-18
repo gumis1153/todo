@@ -120,5 +120,11 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+
+  .n-text {
+    display: block;
+    text-align: left;
+    margin-bottom: 12px;
+  }
 }
 </style>
