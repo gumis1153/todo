@@ -1,15 +1,15 @@
 <template>
   <n-modal v-model:show="showModal" preset="card" style="width: 90%">
     <template #header>
-      <div>Add task</div>
+      <slot name="header"></slot>
     </template>
 
     <template #default>
-      <slot></slot>
+      <slot name="default"></slot>
     </template>
 
     <template #action>
-      <div>actions</div>
+      <slot name="action"></slot>
     </template>
   </n-modal>
 </template>
@@ -22,7 +22,6 @@ export default defineComponent({
     isOpen: Boolean,
   },
 
-  // eslint-disable-next-line no-unused-vars
   setup(props, context) {
     const showModal = ref(false);
 
