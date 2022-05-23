@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <n-grid cols="12" item-responsive style="margin-top: 24px" x-gap="24">
+    <n-grid cols="12" item-responsive x-gap="24">
       <n-grid-item span="12" style="margin-bottom: 24px">
         <n-h1>
           <n-text style="text-align: center"> TaskApp</n-text>

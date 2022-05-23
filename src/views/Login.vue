@@ -1,6 +1,10 @@
 <template>
   <div class="login">
-    <h1>{{ capitalize(activeGroup) }}</h1>
+    <n-h1>
+      <n-text style="text-align: center">
+        {{ capitalize(activeGroup) }}
+      </n-text>
+    </n-h1>
 
     <n-button-group size="medium" style="margin-bottom: 24px">
       <n-button

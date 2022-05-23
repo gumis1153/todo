@@ -1,17 +1,11 @@
 <template>
-  <n-data-table
-    :columns="columns"
-    :data="data"
-    :pagination="pagination"
-    :row-key="(row) => row.address"
-    @update:checked-row-keys="handleCheck"
-  />
+  <n-data-table :columns="columns" :data="tableData" />
 </template>
 
 <script>
-import { NButton } from "naive-ui";
 
-import { defineComponent, ref, h, watch } from "vue";
+// eslint-disable-next-line no-unused-vars
+import { defineComponent, ref, h, watch, onMounted } from "vue";
 
 const columns = [
   {
@@ -32,25 +26,12 @@ const columns = [
     key: "priority",
   },
   {
-    title: "Created",
-    key: "created",
+    title: "Task date",
+    key: "taskDate",
   },
   {
     title: "Completed",
     key: "completed",
-    render() {
-      return h(
-        NButton,
-        {
-          strong: true,
-          tertiary: true,
-          size: "small",
-          // select completed
-          onClick: () => console.log("playing..."),
-        },
-        { default: () => "Completed" }
-      );
-    },
   },
 ];
 
@@ -59,24 +40,23 @@ export default defineComponent({
     tasks: Array,
   },
 
-  setup(props) {
+  setup: function () {
     const checkedRowKeysRef = ref([]);
-    const data = ref([]);
+    const tableData = ref([]);
 
-    watch(() => {
-      data.value = props.tasks;
+    onMounted(() => {
+      tableData.value = localStorage.taskList ? JSON.parse(localStorage.taskList) : [];
+    });
+
+    // todo: ogarnięcie watchera na localStorage
+    watch(localStorage, () => {
+      tableData.value = JSON.parse(localStorage.taskList);
     });
 
     return {
-      data,
+      tableData,
       columns,
       checkedRowKeys: checkedRowKeysRef,
-      pagination: {
-        pageSize: 5,
-      },
-      handleCheck(rowKeys) {
-        checkedRowKeysRef.value = rowKeys;
-      },
     };
   },
 });

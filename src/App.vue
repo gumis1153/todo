@@ -25,6 +25,7 @@
         placeholder="Task title"
         style="margin-bottom: 12px"
         type="text"
+        :status="!formValid ? 'error' : ''"
       />
       <label>Description (optional)</label>
       <n-input
@@ -45,25 +46,53 @@
       <n-select
         v-model:value="priority"
         :options="priorityOptions"
-        style="margin-bottom: 12px"
         placeholder="Task priority"
+        style="margin-bottom: 12px"
       />
     </template>
 
     <template v-slot:action>
-      <n-button strong secondary type="primary" style="margin-right: 12px">
+      <n-button
+        secondary
+        strong
+        style="margin-right: 12px"
+        type="primary"
+        @click="resetForm"
+      >
         Reset
       </n-button>
-      <n-button type="primary" style="margin-right: 12px"> Cancel </n-button>
-      <n-button type="primary"> Add </n-button>
+      <n-button
+        :disabled="addingInProgress"
+        :loading="addingInProgress"
+        type="primary"
+        @click="submit"
+      >
+        Add
+      </n-button>
     </template>
   </modal>
+
+  <n-modal
+    :show="successAdd"
+    closable="false"
+    content="Wanna add more tasks?"
+    mask-closable="false"
+    close-on-esc="false"
+    negative-text="No"
+    positive-text="Yes"
+    preset="dialog"
+    title="Task successfully added"
+    @positive-click="closeSuccessModal(true)"
+    @negative-click="closeSuccessModal"
+  />
 </template>
 
 <script>
 import Header from "@/components/Header";
 import Modal from "@/components/Modal";
+import addTasks from "./use/addTask";
 
+// eslint-disable-next-line no-unused-vars
 import { NIcon, NInput, NDatePicker, NSelect } from "naive-ui";
 import { Add as AddIcon } from "@vicons/ionicons5";
 
@@ -73,7 +102,10 @@ export default {
   components: { Modal, Header, AddIcon, NIcon, NInput, NDatePicker, NSelect },
 
   setup: function () {
+    const formValid = ref(true);
     const newTaskModalOpen = ref(false);
+    const addingInProgress = ref(false);
+    const successAdd = ref(false);
     const priorityOptions = reactive([
       {
         label: "Low",
@@ -103,12 +135,57 @@ export default {
       newTaskModalOpen.value = false;
     };
 
+    const resetForm = () => {
+      // todo: descructure
+      addTaskForm.title = "";
+      addTaskForm.description = "";
+      addTaskForm.completeDate = null;
+      addTaskForm.priority = null;
+      // eslint-disable-next-line no-unused-vars
+      // let {title, description, completeDate, priority} = {...toRefs(addTaskForm)};
+      // console.log(title);
+      // title = '';
+      // description = '';
+      // completeDate = null;
+      // priority = null;
+    };
+
+    const submit = () => {
+      addingInProgress.value = true;
+
+      // fake api call
+      setTimeout(() => {
+        addingInProgress.value = false;
+
+        if (addTaskForm.title.length > 0) {
+          addTasks(addTaskForm);
+          successAdd.value = true;
+          resetForm();
+        } else {
+          formValid.value = false;
+          return;
+        }
+      }, 400);
+    };
+
+    const closeSuccessModal = (closeForm = false) => {
+      successAdd.value = false;
+      newTaskModalOpen.value = closeForm;
+    };
+
     return {
       ...toRefs(addTaskForm),
       toggleNewTaskModal,
       newTaskModalOpen,
       resetModal,
       priorityOptions,
+      resetForm,
+      addTasks,
+      submit,
+      addingInProgress,
+      successAdd,
+      closeSuccessModal,
+      formValid,
     };
   },
 };

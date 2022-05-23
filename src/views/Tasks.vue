@@ -1,13 +1,15 @@
 <template>
   <div class="list">
-    <h1>This is an list page</h1>
+    <n-h1>
+      <n-text style="text-align: center"> Tasks </n-text>
+    </n-h1>
 
-    <Table :tasks="tasks" />
+    <Table />
   </div>
 </template>
 
 <script>
-import db from "../database/tasks.js";
+import getTasks from "../use/getTasks";
 
 import { defineComponent, ref, onMounted } from "vue";
 
@@ -17,7 +19,9 @@ export default defineComponent({
 
     // fake fetch
     const fetchFromDb = () => {
-      return db;
+      console.log(getTasks());
+      return [];
+      // return db;
     };
 
     onMounted(() => {
