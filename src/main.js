@@ -3,7 +3,24 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import Table from "@/components/Table";
-import { NButton, NDataTable, NForm, NInput, NModal, NLayout, NMenu, NGridItem, NGrid, NH1, NH2, NH3, NUl, NLi, NA, NText } from "naive-ui";
+import {
+  NButton,
+  NDataTable,
+  NForm,
+  NInput,
+  NModal,
+  NLayout,
+  NMenu,
+  NGridItem,
+  NGrid,
+  NH1,
+  NH2,
+  NH3,
+  NUl,
+  NLi,
+  NA,
+  NText,
+} from "naive-ui";
 
 const application = createApp(App);
 

@@ -1,19 +1,29 @@
 <template>
-  <n-data-table :columns="columns" :data="tableData" />
+  <n-data-table :columns="columns" :data="tableData" :row-props="rowProps" />
 </template>
 
 <script>
+import Modal from "@/components/Modal";
+import store from "@/store";
 
-// eslint-disable-next-line no-unused-vars
-import { defineComponent, ref, h, watch, onMounted } from "vue";
+import { defineComponent, h, onMounted, ref, computed } from "vue";
+import { NTag } from "naive-ui";
+
+const rowProps = (row) => {
+  return {
+    style: "cursor: pointer;",
+    onClick: () => {
+      console.log(row);
+    },
+  };
+};
 
 const columns = [
   {
     type: "selection",
     // TODO: ogarnięcie
+    // eslint-disable-next-line no-unused-vars
     disabled(row, index) {
-      console.log(row);
-      console.log(index);
       return row.name === "Edward King 3";
     },
   },
@@ -24,10 +34,62 @@ const columns = [
   {
     title: "Priority",
     key: "priority",
+    render(row) {
+      const { priority } = row;
+
+      if (priority !== null) {
+        const type =
+          priority === "low" ? "" : priority === "medium" ? "warning" : "error";
+
+        return h(
+          NTag,
+          {
+            style: {
+              marginRight: "6px",
+            },
+            type: type,
+          },
+          {
+            default: () =>
+              priority.charAt(0).toUpperCase() + priority.substring(1),
+          }
+        );
+      } else return "";
+    },
   },
   {
-    title: "Task date",
-    key: "taskDate",
+    title: "Complete date",
+    key: "completeDate",
+    render(row) {
+      const { completeDate } = row;
+
+      if (completeDate !== null) {
+        const dateObject = new Date(completeDate);
+        const day = dateObject.getDate();
+        const month = dateObject.getMonth() + 1;
+        const year = dateObject.getFullYear();
+        const fullDate = `${day}.${month}.${year}`;
+        const type =
+          +new Date() >= +dateObject
+            ? "error"
+            : +new Date() + 86400000 >= +dateObject
+            ? "warning"
+            : "";
+
+        return h(
+          NTag,
+          {
+            style: {
+              marginRight: "6px",
+            },
+            type: type,
+          },
+          {
+            default: () => fullDate,
+          }
+        );
+      } else return "";
+    },
   },
   {
     title: "Completed",
@@ -36,27 +98,27 @@ const columns = [
 ];
 
 export default defineComponent({
+  // eslint-disable-next-line vue/no-unused-components
+  components: { Modal },
   props: {
     tasks: Array,
   },
 
   setup: function () {
     const checkedRowKeysRef = ref([]);
-    const tableData = ref([]);
 
     onMounted(() => {
-      tableData.value = localStorage.taskList ? JSON.parse(localStorage.taskList) : [];
+      const { tasks } = store.state;
+      tableData.value = tasks;
     });
 
-    // todo: ogarnięcie watchera na localStorage
-    watch(localStorage, () => {
-      tableData.value = JSON.parse(localStorage.taskList);
-    });
+    const tableData = computed(() => store.state.tasks);
 
     return {
       tableData,
       columns,
       checkedRowKeys: checkedRowKeysRef,
+      rowProps,
     };
   },
 });

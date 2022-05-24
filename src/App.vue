@@ -42,7 +42,7 @@
         style="margin-bottom: 12px"
         type="date"
       />
-      <label>Task priority (optional)</label>
+      <label>Task priority</label>
       <n-select
         v-model:value="priority"
         :options="priorityOptions"
@@ -90,17 +90,17 @@
 <script>
 import Header from "@/components/Header";
 import Modal from "@/components/Modal";
-import addTasks from "./use/addTask";
 
-// eslint-disable-next-line no-unused-vars
 import { NIcon, NInput, NDatePicker, NSelect } from "naive-ui";
 import { Add as AddIcon } from "@vicons/ionicons5";
 
-import { ref, reactive, toRefs } from "vue";
+import { ref, reactive, toRefs, onMounted } from "vue";
+import store from "@/store";
 
 export default {
   components: { Modal, Header, AddIcon, NIcon, NInput, NDatePicker, NSelect },
 
+  // eslint-disable-next-line no-unused-vars
   setup: function () {
     const formValid = ref(true);
     const newTaskModalOpen = ref(false);
@@ -124,7 +124,11 @@ export default {
       title: "",
       description: "",
       completeDate: null,
-      priority: null,
+      priority: "low",
+    });
+
+    onMounted(() => {
+      store.dispatch("initTasksDataToStore", localStorage.taskList || "[]");
     });
 
     const toggleNewTaskModal = () => {
@@ -140,14 +144,7 @@ export default {
       addTaskForm.title = "";
       addTaskForm.description = "";
       addTaskForm.completeDate = null;
-      addTaskForm.priority = null;
-      // eslint-disable-next-line no-unused-vars
-      // let {title, description, completeDate, priority} = {...toRefs(addTaskForm)};
-      // console.log(title);
-      // title = '';
-      // description = '';
-      // completeDate = null;
-      // priority = null;
+      addTaskForm.priority = priorityOptions[0].value;
     };
 
     const submit = () => {
@@ -158,12 +155,11 @@ export default {
         addingInProgress.value = false;
 
         if (addTaskForm.title.length > 0) {
-          addTasks(addTaskForm);
+          store.dispatch("updateTask", addTaskForm);
           successAdd.value = true;
           resetForm();
         } else {
           formValid.value = false;
-          return;
         }
       }, 400);
     };
@@ -180,7 +176,6 @@ export default {
       resetModal,
       priorityOptions,
       resetForm,
-      addTasks,
       submit,
       addingInProgress,
       successAdd,
