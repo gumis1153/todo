@@ -6,7 +6,7 @@
 import Modal from "@/components/Modal";
 import store from "@/store";
 
-import { defineComponent, h, onMounted, ref, computed } from "vue";
+import { defineComponent, h, ref, computed } from "vue";
 import { NTag } from "naive-ui";
 
 const rowProps = (row) => {
@@ -19,14 +19,14 @@ const rowProps = (row) => {
 };
 
 const columns = [
-  {
-    type: "selection",
-    // TODO: ogarnięcie
-    // eslint-disable-next-line no-unused-vars
-    disabled(row, index) {
-      return row.name === "Edward King 3";
-    },
-  },
+  //  todo: do ogarnięcia bulk actions
+  // {
+  //   type: "selection",
+  //   // eslint-disable-next-line no-unused-vars
+  //   disabled(row, index) {
+  //     return row.name === "Edward King 3";
+  //   },
+  // },
   {
     title: "Title",
     key: "title",
@@ -106,11 +106,6 @@ export default defineComponent({
 
   setup: function () {
     const checkedRowKeysRef = ref([]);
-
-    onMounted(() => {
-      const { tasks } = store.state;
-      tableData.value = tasks;
-    });
 
     const tableData = computed(() => store.state.tasks);
 

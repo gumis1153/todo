@@ -21,6 +21,7 @@ export default createStore({
       const { title, description, completeDate, priority } = task;
 
       context.commit("updateTasks", {
+        id: context.state.tasks.length + 1,
         title,
         description,
         completeDate,

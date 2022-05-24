@@ -1,48 +1,44 @@
 <template>
   <div class="login">
-    <n-form :model="formValue" inline label-placement="center" size="medium">
-      <n-grid cols="1" item-responsive y-gap="24">
-        <n-grid-item>
-          <n-form-item label="Login" label-width="100%">
-            <n-input
-              v-model:value="formValue.login.value"
-              :status="!formValue.login.valid ? 'error' : ''"
-              placeholder="Login"
-            />
-          </n-form-item>
-        </n-grid-item>
+    <n-form
+      :model="formValue"
+      label-placement="left"
+    >
+      <n-form-item>
+        <n-input
+          v-model:value="formValue.login.value"
+          :status="!formValue.login.valid ? 'error' : ''"
+          placeholder="Login"
+        />
+      </n-form-item>
 
-        <n-grid-item>
-          <n-form-item label="Password">
-            <n-input
-              v-model:value="formValue.password.value"
-              :status="!formValue.password.valid ? 'error' : ''"
-              placeholder="Password"
-              type="password"
-            />
-          </n-form-item>
-        </n-grid-item>
+      <n-form-item>
+        <n-input
+          v-model:value="formValue.password.value"
+          :status="!formValue.password.valid ? 'error' : ''"
+          placeholder="Password"
+          type="password"
+        />
+      </n-form-item>
 
-        <n-grid-item>
-          <n-form-item>
-            <n-button type="primary" @click="handleValidateButtonClick">
-              Login
-            </n-button>
-          </n-form-item>
-        </n-grid-item>
-      </n-grid>
+      <n-form-item>
+        <n-button type="primary" @click="handleValidateButtonClick" style="margin: 0 auto">
+          Login
+        </n-button>
+      </n-form-item>
     </n-form>
   </div>
 </template>
 
 <script>
-import { NForm, NInput } from "naive-ui";
+import { NForm, NFormItem, NInput } from "naive-ui";
 
 import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   components: {
     NForm,
+    NFormItem,
     NInput,
   },
 

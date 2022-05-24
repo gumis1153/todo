@@ -22,7 +22,7 @@ const menuOptions = [
         {
           to: "/",
         },
-        "Home"
+        () => "Home"
       ),
     key: "home",
     icon: renderIcon(HomeOutline),
@@ -34,7 +34,7 @@ const menuOptions = [
         {
           to: "/tasks",
         },
-        "Tasks"
+        () => "Tasks"
       ),
     key: "tasks",
     icon: renderIcon(TasksApp24Regular),
@@ -46,7 +46,7 @@ const menuOptions = [
         {
           to: "/login",
         },
-        "Login"
+        () => "Login"
       ),
     key: "login",
     icon: renderIcon(LogInOutline),

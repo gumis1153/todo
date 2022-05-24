@@ -74,10 +74,10 @@
 
   <n-modal
     :show="successAdd"
-    closable="false"
+    :closable="false"
     content="Wanna add more tasks?"
-    mask-closable="false"
-    close-on-esc="false"
+    :mask-closable="false"
+    :close-on-esc="false"
     negative-text="No"
     positive-text="Yes"
     preset="dialog"
