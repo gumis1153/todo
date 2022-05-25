@@ -1,9 +1,6 @@
 <template>
   <div class="login">
-    <n-form
-      :model="formValue"
-      label-placement="left"
-    >
+    <n-form :model="formValue" label-placement="left">
       <n-form-item>
         <n-input
           v-model:value="formValue.login.value"
@@ -22,7 +19,11 @@
       </n-form-item>
 
       <n-form-item>
-        <n-button type="primary" @click="handleValidateButtonClick" style="margin: 0 auto">
+        <n-button
+          type="primary"
+          @click="handleValidateButtonClick"
+          style="margin: 0 auto"
+        >
           Login
         </n-button>
       </n-form-item>

@@ -10,14 +10,14 @@ export default createStore({
     },
   },
   actions: {
-    initTasksDataToStore(context, data) {
+    async initTasksDataToStore(context, data) {
       const parsedData = JSON.parse(data);
 
       parsedData.forEach((item) => {
         context.commit("updateTasks", item);
       });
     },
-    updateTask: function (context, task) {
+    updateTask(context, task) {
       const { title, description, completeDate, priority } = task;
 
       context.commit("updateTasks", {
@@ -29,7 +29,13 @@ export default createStore({
       });
       context.dispatch("updateLocalStorage");
     },
-    updateLocalStorage(context) {
+    removeTask(context, task) {
+      context.state.tasks = context.state.tasks.filter(function (item) {
+        return item.id !== task.id;
+      });
+      context.dispatch("updateLocalStorage");
+    },
+    async updateLocalStorage(context) {
       localStorage.removeItem("taskList");
       localStorage.setItem("taskList", JSON.stringify(context.state.tasks));
     },

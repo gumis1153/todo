@@ -1,9 +1,6 @@
 <template>
   <div class="register">
-    <n-form
-      :model="formValue"
-      label-placement="left"
-    >
+    <n-form :model="formValue" label-placement="left">
       <n-form-item>
         <n-input
           v-model:value="formValue.login.value"
@@ -32,9 +29,9 @@
 
       <n-form-item style="display: block; width: 100%">
         <n-button
+          style="margin: 0 auto"
           type="primary"
           @click="handleValidateButtonClick"
-          style="margin: 0 auto"
         >
           Register
         </n-button>

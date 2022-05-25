@@ -7,7 +7,7 @@ import Modal from "@/components/Modal";
 import store from "@/store";
 
 import { defineComponent, h, ref, computed } from "vue";
-import { NTag } from "naive-ui";
+import { NTag, NButton } from "naive-ui";
 
 const rowProps = (row) => {
   return {
@@ -92,8 +92,30 @@ const columns = [
     },
   },
   {
-    title: "Completed",
-    key: "completed",
+    title: "Actions",
+    key: "actions",
+    // eslint-disable-next-line no-unused-vars
+    render(row) {
+      return [
+        h(
+          NButton,
+          {
+            size: "small",
+            style: "margin-right: 12px;",
+            onClick: () => console.log("send mail"),
+          },
+          { default: () => "Archive task" }
+        ),
+        h(
+          NButton,
+          {
+            size: "small",
+            onClick: () => store.dispatch("removeTask", row),
+          },
+          { default: () => "Delete" }
+        ),
+      ];
+    },
   },
 ];
 
