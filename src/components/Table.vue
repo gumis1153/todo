@@ -102,14 +102,16 @@ const columns = [
           {
             size: "small",
             style: "margin-right: 12px;",
-            onClick: () => console.log("send mail"),
+            type: "primary",
+            onClick: () => console.log("edit"),
           },
-          { default: () => "Archive task" }
+          { default: () => "Edit" }
         ),
         h(
           NButton,
           {
             size: "small",
+            type: 'error',
             onClick: () => store.dispatch("removeTask", row),
           },
           { default: () => "Delete" }

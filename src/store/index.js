@@ -27,6 +27,7 @@ export default createStore({
         completeDate,
         priority,
       });
+
       context.dispatch("updateLocalStorage");
     },
     removeTask(context, task) {
